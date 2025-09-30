@@ -7,19 +7,18 @@ export const createShortUrlWithoutUser = async (url) => {
     if (!shortUrl) {
       throw new Error("Short URL not generated");
     }
-
     await saveShortUrl(shortUrl, url);
+    //console.log(shortUrl)
     return shortUrl;
   } catch (err) {
     console.error("❌ Error creating short URL without user:", err.message);
-    throw err; 
+    throw err;
   }
 };
 
 export const createShortUrlWithUser = async (url, userId, slug = null) => {
   try {
     const shortUrl = slug || generateNanoId(7);
-
     if (slug) {
       const exists = await getShortUrl(slug);
       if (exists) {
@@ -31,6 +30,6 @@ export const createShortUrlWithUser = async (url, userId, slug = null) => {
     return shortUrl;
   } catch (err) {
     console.error("❌ Error creating short URL with user:", err.message);
-    throw err; 
+    throw err;
   }
 };

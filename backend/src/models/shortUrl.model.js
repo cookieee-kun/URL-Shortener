@@ -10,7 +10,7 @@ const shortUrlSchema = new mongoose.Schema({
 		required: true,
 		index: true,
 		unique: true,
-	},
+	},	
 	clicks: {
 		type: Number,
 		required: true,

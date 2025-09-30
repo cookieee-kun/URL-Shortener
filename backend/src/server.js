@@ -1,17 +1,28 @@
 import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/mongo.config.js";
-import urlSchema from "./models/shortUrl.model.js"; 
+import authRoutes from "./routes/auth.route.js"
 import shortUrlRoutes from "./routes/shortUrl.route.js";
 import { redirectFromShortUrl } from "./controllers/shortUrl.controller.js"
-
+import cookieParser from "cookie-parser"
+import { authMiddleware } from "./middleware/auth.middleware.js"
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'], // Vite dev server URLs
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
+
+app.use(authMiddleware)
+app.use("/api/auth", authRoutes)
 app.use("/api/create", shortUrlRoutes);
 app.use("/:id", redirectFromShortUrl);
 
