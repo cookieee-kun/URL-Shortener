@@ -13,17 +13,18 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'], // Vite dev server URLs
-  credentials: true
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'], // Vite dev server URLs and backend
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 
-app.use(authMiddleware)
 app.use("/api/auth", authRoutes)
-app.use("/api/create", shortUrlRoutes);
+app.use("/api/create", authMiddleware, shortUrlRoutes);
 app.use("/:id", redirectFromShortUrl);
 
 connectDB().then(() => {

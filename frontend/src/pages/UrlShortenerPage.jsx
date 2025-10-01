@@ -19,8 +19,8 @@ export default function UrlShortenerPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
+      <Header />
       <div className="max-w-2xl mx-auto">
-        <Header />
         <div className="bg-white rounded-2xl shadow-xl p-8">
           {!shortenedUrl ? (
             <UrlForm onShorten={handleShorten} />

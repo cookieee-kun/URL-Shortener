@@ -2,7 +2,7 @@ import apiClient from "./apiClient.js";
 
 // Shorten a URL
 export const shortenUrl = async (originalUrl, user) => {
-  const response = await apiClient.post("/api/create", { url: originalUrl, user });
+  const response = await apiClient.post("/create", { url: originalUrl, user });
   return response.data; 
 };
 
