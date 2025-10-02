@@ -6,7 +6,7 @@ export const createShortUrl = wrapAsync(async (req, res) => {
     const data = req.body
     let shortUrl
     if (req.user) {
-        console.log(req.user._id)
+        //console.log(req.user._id)
         shortUrl = await createShortUrlWithUser(data.url, req.user._id, data.slug)
     } else {
         shortUrl = await createShortUrlWithoutUser(data.url)

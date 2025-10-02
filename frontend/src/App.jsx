@@ -1,8 +1,6 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import UrlShortenerPage from "./pages/UrlShortenerPage";
 import AuthPage from "./pages/AuthPage";
-import Header from "./components/Header";
 
 function App() {
   return (

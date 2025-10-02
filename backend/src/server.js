@@ -2,11 +2,11 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/mongo.config.js";
-import authRoutes from "./routes/auth.route.js"
+import authRoutes from "./routes/auth.route.js";
 import shortUrlRoutes from "./routes/shortUrl.route.js";
-import { redirectFromShortUrl } from "./controllers/shortUrl.controller.js"
-import cookieParser from "cookie-parser"
-import { authMiddleware } from "./middleware/auth.middleware.js"
+import { redirectFromShortUrl } from "./controllers/shortUrl.controller.js";
+import cookieParser from "cookie-parser";
+import { attachUser } from "./utils/attachUser.js";
 dotenv.config();
 
 const app = express();
@@ -21,10 +21,11 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
+app.use(cookieParser());
+app.use(attachUser);
 
-app.use("/api/auth", authRoutes)
-app.use("/api/create", authMiddleware, shortUrlRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/create", shortUrlRoutes);
 app.use("/:id", redirectFromShortUrl);
 
 connectDB().then(() => {

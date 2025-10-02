@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api', // Use relative URL with Vite proxy
+  baseURL: '/api', 
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ export const urlService = {
     } catch (error) {
       console.error('Error creating short URL:', error);
       throw new Error(
-        error.response?.data?.message || 
+        error.response?.data?.message ||
         'Failed to create shortened URL. Please try again.'
       );
     }
@@ -37,11 +37,11 @@ export const urlService = {
     } catch (error) {
       console.error('Error creating custom short URL:', error);
       throw new Error(
-        error.response?.data?.message || 
+        error.response?.data?.message ||
         'Failed to create custom shortened URL. Please try again.'
       );
     }
   }
 };
 
-export default api; n
+export default api;
