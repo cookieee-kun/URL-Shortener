@@ -1,8 +1,9 @@
 import apiClient from "./apiClient.js";
 
-// Shorten a URL
-export const shortenUrl = async (originalUrl, user) => {
-  const response = await apiClient.post("/create", { url: originalUrl, user });
+// Shorten a URL (optionally with a custom slug for authenticated users)
+export const shortenUrl = async (originalUrl, slug) => {
+  const payload = slug ? { url: originalUrl, slug } : { url: originalUrl };
+  const response = await apiClient.post("/create", payload);
   return response.data;
 };
 
