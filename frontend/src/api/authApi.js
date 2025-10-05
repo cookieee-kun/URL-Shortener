@@ -9,4 +9,4 @@ export const login = async (email, password) => {
 export const register = async (email, password, name) => {
   const res = await apiClient.post("/auth/register", { email, password, name });
   return res.data; // e.g. { token, user }
-};
+};    

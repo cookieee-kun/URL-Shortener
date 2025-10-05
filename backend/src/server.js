@@ -4,9 +4,12 @@ import dotenv from "dotenv";
 import connectDB from "./config/mongo.config.js";
 import authRoutes from "./routes/auth.route.js";
 import shortUrlRoutes from "./routes/shortUrl.route.js";
+import userRoutes from "./routes/user.routes.js"
 import { redirectFromShortUrl } from "./controllers/shortUrl.controller.js";
 import cookieParser from "cookie-parser";
 import { attachUser } from "./utils/attachUser.js";
+import { errorHandler } from "./utils/errorHandler.js";
+
 dotenv.config();
 
 const app = express();
@@ -26,7 +29,11 @@ app.use(attachUser);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/create", shortUrlRoutes);
+app.use("/api/user", userRoutes)
 app.use("/:id", redirectFromShortUrl);
+
+// Error handler
+app.use(errorHandler);
 
 connectDB().then(() => {
   app.listen(PORT, () => {

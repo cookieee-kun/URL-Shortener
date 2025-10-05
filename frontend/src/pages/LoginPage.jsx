@@ -1,19 +1,24 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "../components/auth/LoginForm";
 import { login } from "../api/authApi";
 import Header from "../components/Header";
+import { useAuth } from "../context/AuthContext";
 
 function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const handleSubmit = async (data) => {
     setIsLoading(true);
     setError("");
     try {
       const res = await login(data.email, data.password);
-      console.log("Logged in:", res);
+      // Update context immediately and redirect home
+      if (res?.user) setUser(res.user);
+      navigate("/");
     } catch (err) {
       setError(err.message || "Something went wrong");
     } finally {

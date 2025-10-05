@@ -2,7 +2,7 @@ import { getShortUrl } from "../dao/shortUrl.dao.js"
 import { createShortUrlWithoutUser, createShortUrlWithUser } from "../services/shortUrl.service.js"
 import wrapAsync from "../utils/tryCatchWrapper.js"
 
-export const createShortUrl = wrapAsync(async (req, res) => {
+export const    createShortUrl = wrapAsync(async (req, res) => {
     const data = req.body
     let shortUrl
     if (req.user) {
@@ -12,7 +12,7 @@ export const createShortUrl = wrapAsync(async (req, res) => {
         shortUrl = await createShortUrlWithoutUser(data.url)
     }
     res.status(200).json({ shortUrl: process.env.APP_URL + shortUrl })
-})
+})  
 
 export const redirectFromShortUrl = wrapAsync(async (req, res) => {
     const { id } = req.params

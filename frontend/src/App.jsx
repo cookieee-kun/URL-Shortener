@@ -1,22 +1,20 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import UrlShortenerPage from "./pages/UrlShortenerPage";
-import AuthPage from "./pages/AuthPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import Navbar from "./components/NavBar.jsx"; // assuming Navbar is in components folder
 
 function App() {
   return (
-    <Router>
-      
-      <Routes>
-        {/* Login/Register Page */}
-        <Route path="/login" element={<AuthPage />} />
-
-        {/* URL Shortener Page */}
-        <Route path="/" element={<UrlShortenerPage />} />
-
-        {/* Catch-all → redirect to /login */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </Router>
+    <BrowserRouter>
+      <Navbar />
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={<UrlShortenerPage />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+    </BrowserRouter>
   );
 }
 

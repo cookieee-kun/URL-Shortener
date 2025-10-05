@@ -30,6 +30,7 @@ export default function UrlForm({ onShorten }) {
     setIsLoading(true);
     try {
       const data = await shortenUrl(originalUrl);
+      console.log(data.shortUrl);
       onShorten(data.shortUrl, originalUrl);
     } catch (err) {
       setError("Failed to shorten URL. Try again.");
